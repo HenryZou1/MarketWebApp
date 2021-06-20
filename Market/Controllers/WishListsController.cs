@@ -23,39 +23,15 @@ namespace Market.Controllers
         public async Task<IActionResult> Index()
         {
             List<WishList> wishList = await _context.WishList.ToListAsync();
-    
-
-            return View(await  _context.WishList.ToListAsync());
-        }
-        
-        // GET: WishLists/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+            List<ItemsViewModel> cartList = new List<ItemsViewModel>();
+            foreach (WishList element in wishList) {
+                if (element.UserId == 1) {
+                    var item = await _context.Item.FirstOrDefaultAsync(m => m.Id == element.ItemId);
+                    cartList.Add(new ItemsViewModel(item, element.Id));
+                }
             }
-
-            var wishList = await _context.WishList
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (wishList == null)
-            {
-                return NotFound();
-            }
-
-            return View(wishList);
+            return View( cartList);
         }
-
-        // GET: WishLists/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        
-
-
-   
 
         // GET: WishLists/Delete/5
         public async Task<IActionResult> Delete(int? id)

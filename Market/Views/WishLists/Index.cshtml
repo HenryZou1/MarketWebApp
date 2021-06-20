@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Market.Models.WishList>
+﻿@model IEnumerable<Market.Models.ItemsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,26 +10,38 @@
 <table class="table">
     <thead>
         <tr>
-            
+
             <th>
-                @Html.DisplayNameFor(model => model.ItemId)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-              
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemId)
-                </td>
-                <td>
-                   
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+
+                <a asp-action="Delete" asp-route-id="@item.WishListId">Remove from List</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
